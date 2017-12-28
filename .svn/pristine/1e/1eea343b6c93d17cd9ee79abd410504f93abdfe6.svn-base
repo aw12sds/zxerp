@@ -1,0 +1,35 @@
+#Created by JInto - www.guh-software.de
+#Mon Sep 18 11:40:48 CST 2017
+databasetype=mysql
+dbname=zxkj_erp
+driverClassName=com.mysql.jdbc.Driver
+driverClassTest=com.mysql.jdbc.Driver
+filters=stat
+initialSize=2
+ip=localhost
+maxActive=5
+maxOpenPreparedStatements=20
+maxWait=60000
+minEvictableIdleTimeMillis=300000
+minIdle=1
+password=zxtest
+passwordTest=zxtest
+poolPreparedStatements=true
+port=3306
+slave.databasetype=mysql
+slave.dbname=zxkj_erp
+slave.driverClassName=com.mysql.jdbc.Driver
+slave.ip=localhost
+slave.password=zxtest
+slave.port=3306
+slave.url=jdbc\:mysql\://localhost\:3306/zxkj_erp?useOldAliasMetadataBehavior\=true&amp;useUnicode\=true&amp;characterEncoding\=utf8&allowMultiQueries\=true
+slave.username=root
+testOnBorrow=false
+testOnReturn=false
+testWhileIdle=true
+timeBetweenEvictionRunsMillis=60000
+url=jdbc\:mysql\://localhost\:3306/zxkj_erp?useOldAliasMetadataBehavior\=true&amp;useUnicode\=true&amp;characterEncoding\=utf8&allowMultiQueries\=true
+urlTest=jdbc\:mysql\://localhost\:3306/zxkj_erp?useOldAliasMetadataBehavior\=true&amp;useUnicode\=true&amp;characterEncoding\=utf8&allowMultiQueries\=true
+username=root
+usernameTest=root
+validationQuery=SELECT 'x'

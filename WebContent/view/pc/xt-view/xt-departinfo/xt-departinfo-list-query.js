@@ -1,0 +1,115 @@
+var store;
+var grid;
+Ext.onReady(function(){
+	/**查询区域可扩展**/
+	var items = Ext.create('Ext.FormPanel',{
+		xtype:'form',
+		maxHeight:150,
+		waitMsgTarget:true,
+		defaultType:'textfield',
+		autoScroll:true,
+		fieldDefaults:{
+			labelWidth:70,
+			labelAlign:'left',
+			flex:1,
+			margin:'2 5 4 5'
+		},
+		items:[
+		{
+			fieldLabel:'部门名称',
+			xtype:'textfield',
+			labelWidth:70,
+			id:'xt_departinfo_name',
+			name:'xt_departinfo_name',
+			anchor:'30%',
+			labelAlign:'left'
+		}
+		]
+	});
+	initSearchForm('north',items,false,'left');
+	store = getGridJsonStore('../xtDepartinfoController/getXtDepartinfoListByCondition',[]);
+	grid = Ext.create('Ext.grid.Panel',{
+		region:'center',
+		xtype:'panel',
+		store:store,
+		title:'查询结果',
+		columnLines:true,
+		border:true,
+		selType:'cellmodel',
+		multiSelect:true,
+		selType:'checkboxmodel',
+		viewConfig:{
+			emptyText:'暂无数据',
+			stripeRows:true
+		},
+		loadMask:{
+			msg:'正在加载...'
+		},
+		columns:[
+			{
+				header:'序号',
+				width:77,
+				xtype:'rownumberer'
+			},
+			{
+				header:'部门名称',
+				flex:1,
+				dataIndex:'xt_departinfo_name'
+			},
+			{
+				header:'联系电话',
+				flex:1,
+				dataIndex:'xt_departinfo_connectTelNo'
+			},
+			{
+				header:'移动电话',
+				flex:1,
+				dataIndex:'xt_departinfo_connectMobileTelNo'
+			},
+			{
+				header:'传真',
+				flex:1,
+				dataIndex:'xt_departinfo_faxes'
+			},
+			{
+				header:'描述部门信息',
+				flex:1,
+				dataIndex:'xt_departinfo_desc'
+			},
+			{
+				header:'立成时间',
+				flex:1,
+				dataIndex:'xt_departinfo_time'
+			},
+			{
+				header:'部门性质',
+				flex:1,
+				dataIndex:'xt_departinfo_type'
+			}
+		],
+		tbar:[
+			 {
+				text:'检索',
+				tooltip:'检索',
+				minWidth:tbarBtnMinWidth,
+				cls:'searchBtn',
+				icon:searchIcon,
+				handler:function(){
+					search();
+				}
+			 }
+		],
+		bbar:getGridBBar(store)
+	});
+	Ext.create('Ext.Viewport', {
+		layout:'border',
+		xtype:'viewport',
+		items:[searchForm,grid]
+	});
+	store.on('beforeload',function(thiz, options){Ext.apply(thiz.proxy.extraParams,getParmas(store,searchForm));});
+});
+
+/**查询操作**/
+function search(){
+	initSearch(store,'../xtDepartinfoController/getXtDepartinfoListByCondition',searchForm); 
+}
