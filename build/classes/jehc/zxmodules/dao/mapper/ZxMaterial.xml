@@ -97,7 +97,8 @@
 			<if test="standard != null and standard != ''">
 				`standard`,
 			</if>
-			`team`
+			`team`,
+			`property`
 			)
 			VALUES
 			(

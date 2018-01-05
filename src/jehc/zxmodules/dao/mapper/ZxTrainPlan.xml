@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jehc.zxmodules.model.ZxTrainPlan">
+	<!--初始化分页-->
+	<select id="getZxTrainPlanListByCondition" resultType="jehc.zxmodules.model.ZxTrainPlan" parameterType="map">
+		SELECT
+			`id`,
+			`year`,
+			`month`,
+			`caption`,
+			`depart`,
+			`reason`,
+			`status`,
+			DATE_FORMAT(`create_date`,'%Y-%m-%d %H:%i:%s') AS `create_date`
+		FROM 
+			zx_train_plan
+		WHERE 1=1
+	</select>
+
+	<!--查询对象-->
+	<select id="getZxTrainPlanById" resultType="jehc.zxmodules.model.ZxTrainPlan" parameterType="string">
+		SELECT
+			`id`,
+			`year`,
+			`month`,
+			`caption`,
+			`depart`,
+			`reason`,
+			`status`,
+			DATE_FORMAT(`create_date`,'%Y-%m-%d %H:%i:%s') AS `create_date`
+		FROM 
+			zx_train_plan
+		WHERE id=#{id}
+	</select>
+
+	<!--添加-->
+	<insert id="addZxTrainPlan" parameterType="jehc.zxmodules.model.ZxTrainPlan">
+		INSERT INTO
+			zx_train_plan
+			(
+			`id`,
+			`year`,
+			`month`,
+			`caption`,
+			`depart`,
+			`reason`,
+			`status`,
+			`create_date`
+			)
+			VALUES
+			(
+			#{id},
+			#{year},
+			#{month},
+			#{caption},
+			#{depart},
+			#{reason},
+			#{status},
+			#{create_date}
+			)
+	</insert>
+
+	<!--修改-->
+	<update id="updateZxTrainPlan" parameterType="jehc.zxmodules.model.ZxTrainPlan">
+		UPDATE
+			zx_train_plan
+		SET
+			`year` = #{year},
+			`month` = #{month},
+			`caption` = #{caption},
+			`depart` = #{depart},
+			`reason` = #{reason},
+			`status` = #{status},
+			`create_date` = #{create_date}
+		WHERE id=#{id}
+	</update>
+
+	<!--修改（根据动态条件）-->
+	<update id="updateZxTrainPlanBySelective" parameterType="jehc.zxmodules.model.ZxTrainPlan">
+		UPDATE
+			zx_train_plan
+		<set>
+			<if test="year != null">
+				`year` = #{year},
+			</if>
+			<if test="month != null">
+				`month` = #{month},
+			</if>
+			<if test="caption != null">
+				`caption` = #{caption},
+			</if>
+			<if test="depart != null">
+				`depart` = #{depart},
+			</if>
+			<if test="reason != null">
+				`reason` = #{reason},
+			</if>
+			<if test="status != null">
+				`status` = #{status},
+			</if>
+			<if test="create_date != null">
+				`create_date` = #{create_date},
+			</if>
+		</set>
+		WHERE id=#{id}
+	</update>
+
+	<!--删除-->
+	<delete id="delZxTrainPlan" parameterType="map">
+		DELETE FROM zx_train_plan WHERE id IN
+		<foreach item="item" index="index" collection="id" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!--批量添加-->
+	<insert id="addBatchZxTrainPlan" parameterType="list">
+		INSERT INTO
+			zx_train_plan
+			(
+			`id`,
+			`year`,
+			`month`,
+			`caption`,
+			`depart`,
+			`reason`,
+			`status`,
+			`create_date`
+			)
+			VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id},
+			#{item.year},
+			#{item.month},
+			#{item.caption},
+			#{item.depart},
+			#{item.reason},
+			#{item.status},
+			#{item.create_date}
+			)
+		</foreach>
+	</insert>
+
+	<!--批量修改-->
+	<update id="updateBatchZxTrainPlan" parameterType="list">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE
+				zx_train_plan
+			SET
+				`year` = #{item.year},
+				`month` = #{item.month},
+				`caption` = #{item.caption},
+				`depart` = #{item.depart},
+				`reason` = #{item.reason},
+				`status` = #{item.status},
+				`create_date` = #{item.create_date}
+			WHERE id=#{item.id}
+		</foreach>
+	</update>
+
+	<!--批量修改（根据动态条件）-->
+	<update id="updateBatchZxTrainPlanBySelective" parameterType="list">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE
+				zx_train_plan
+			<set>
+				<if test="item.year != null">
+					`year` = #{item.year},
+				</if>
+				<if test="item.month != null">
+					`month` = #{item.month},
+				</if>
+				<if test="item.caption != null">
+					`caption` = #{item.caption},
+				</if>
+				<if test="item.depart != null">
+					`depart` = #{item.depart},
+				</if>
+				<if test="item.reason != null">
+					`reason` = #{item.reason},
+				</if>
+				<if test="item.status != null">
+					`status` = #{item.status},
+				</if>
+				<if test="item.create_date != null">
+					`create_date` = #{item.create_date},
+				</if>
+			</set>
+			WHERE id=#{item.id}
+		</foreach>
+	</update>
+</mapper>
